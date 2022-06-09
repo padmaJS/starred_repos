@@ -1,0 +1,32 @@
+<h1>Listing Starred repos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Language</th>
+      <th>Github url</th>
+      <th>Ref</th>
+      <th>Tags</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for starred_repo <- @starred_repos do %>
+    <tr>
+      <td><%= starred_repo.name %></td>
+      <td><%= starred_repo.description %></td>
+      <td><%= starred_repo.language %></td>
+      <td><%= link starred_repo.github_url, to: starred_repo.github_url %></td>
+      <td><%= starred_repo.ref_id %></td>
+
+      <td>
+        <span><%= link "Edit tags", to: Routes.starred_repo_path(@conn, :edit, starred_repo) %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+

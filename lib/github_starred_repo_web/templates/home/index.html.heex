@@ -1,0 +1,6 @@
+<%= form_for @changeset, Routes.home_path(@conn, :create), fn f -> %>
+    <%= label f, :name %>
+    <%= text_input f, :name %>
+
+    <%= submit "Search for user" %>
+<% end %>

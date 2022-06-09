@@ -1,0 +1,5 @@
+<h1>Edit Starred repo</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.starred_repo_path(@conn, :update, @starred_repo)) %>
+
+<span><%= link "Back", to: Routes.starred_repo_path(@conn, :index) %></span>

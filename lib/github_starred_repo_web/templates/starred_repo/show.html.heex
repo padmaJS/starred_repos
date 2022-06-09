@@ -1,0 +1,33 @@
+<h1>Show Starred repo</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @starred_repo.name %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @starred_repo.description %>
+  </li>
+
+  <li>
+    <strong>Language:</strong>
+    <%= @starred_repo.language %>
+  </li>
+
+  <li>
+    <strong>Github url:</strong>
+    <%= @starred_repo.github_url %>
+  </li>
+
+  <li>
+    <strong>Ref:</strong>
+    <%= @starred_repo.ref_id %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.starred_repo_path(@conn, :edit, @starred_repo) %></span> |
+<span><%= link "Back", to: Routes.starred_repo_path(@conn, :index) %></span>
