@@ -16,6 +16,6 @@ defmodule GithubStarredRepoWeb.HomeController do
     |> Starred_repos.map_json(user)
     |> Starred_repos.create_starred_repos()
 
-    redirect(conn, to: Routes.starred_repo_path(conn, :index, name: user.name))
+    redirect(conn, to: Routes.starred_repo_path(conn, :index, user.name))
   end
 end

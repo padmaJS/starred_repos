@@ -129,6 +129,7 @@ defmodule GithubStarredRepo.Starred_repos do
     user
     |> Ecto.assoc(:starred_repos)
     |> Repo.all()
+    |> Repo.preload(:tags)
   end
 
   # def get_starred_repos(user) do
@@ -136,4 +137,16 @@ defmodule GithubStarredRepo.Starred_repos do
   #   |> where(user_id: ^user.id)
   #   |> Repo.all()
   # end
+
+  def owned_by(user_id, starred_repo_id) do
+    query = from s in Starred_repo, where: s.user_id == ^user_id and s.id == ^starred_repo_id
+
+    case Repo.one(query) do
+      starred_repo = %Starred_repo{} ->
+        {:ok, starred_repo}
+
+      nil ->
+        {:error, "Could not find the starred repo"}
+    end
+  end
 end
