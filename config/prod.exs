@@ -50,5 +50,9 @@ config :logger, level: :info
 # Check `Plug.SSL` for all available options in `force_ssl`.
 
 config :github_starred_repo, GithubStarredRepoWeb.Endpoint,
-  url: [scheme: "https", host: "frozen-sea-20129.herokuapp.com/"],
-  force_ssl: [rewrite_on: [:x_forwarded_proto]]
+  url: [scheme: "https", host: "frozen-sea-20129.herokuapp.com/", port: 443],
+  force_ssl: [rewrite_on: [:x_forwarded_proto]],
+  check_origin: [
+    "http://localhost:4000/",
+    "https://frozen-sea-20129.herokuapp.com/"
+  ]
