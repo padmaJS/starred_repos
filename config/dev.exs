@@ -20,7 +20,10 @@ config :github_starred_repo, GithubStarredRepoWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
   http: [ip: {127, 0, 0, 1}, port: 4000],
-  check_origin: false,
+  check_origin: [
+    "http://localhost:4000/",
+    "https://frozen-sea-20129.herokuapp.com/"
+  ],
   code_reloader: true,
   debug_errors: true,
   secret_key_base: "wmWsgvXxedBkk7QSfMRqmuXZjP0Jp5KvZTs0Ptx8Pf8HY3fFg/Qj2m0rnXsbQXM5",

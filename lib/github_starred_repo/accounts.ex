@@ -37,6 +37,17 @@ defmodule GithubStarredRepo.Accounts do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
+  def create_user(attrs) when is_bitstring(attrs) do
+    attrs = %{"name" => attrs}
+
+    {:ok, user} =
+      %User{}
+      |> User.changeset(attrs)
+      |> Repo.insert(on_conflict: :nothing)
+
+    Repo.get_by(User, name: user.name)
+  end
+
   @doc """
   Creates a user.
 
@@ -49,10 +60,11 @@ defmodule GithubStarredRepo.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_user(attrs \\ %{}) do
-    {:ok, user} = %User{}
-    |> User.changeset(attrs)
-    |> Repo.insert(on_conflict: :nothing)
+  def create_user(%{} = attrs) do
+    {:ok, user} =
+      %User{}
+      |> User.changeset(attrs)
+      |> Repo.insert(on_conflict: :nothing)
 
     Repo.get_by(User, name: user.name)
   end

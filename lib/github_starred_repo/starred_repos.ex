@@ -56,8 +56,10 @@ defmodule GithubStarredRepo.Starred_repos do
   end
 
   def create_starred_repos(repos) do
-    Repo.insert_all(Starred_repo, repos, on_conflict: {:replace_all_except, [:id]},
-    conflict_target: [:user_id, :ref_id])
+    Repo.insert_all(Starred_repo, repos,
+      on_conflict: {:replace_all_except, [:id]},
+      conflict_target: [:user_id, :ref_id]
+    )
   end
 
   @doc """
@@ -74,6 +76,7 @@ defmodule GithubStarredRepo.Starred_repos do
   """
   def update_starred_repo(%Starred_repo{} = starred_repo, attrs) do
     starred_repo
+    |> Repo.preload(:tags)
     |> Starred_repo.changeset(attrs)
     |> Repo.update()
   end
@@ -109,8 +112,11 @@ defmodule GithubStarredRepo.Starred_repos do
 
   def map_json(%HTTPoison.Response{body: body}, user) do
     {:ok, repos} = Jason.decode(body)
-    current_time = NaiveDateTime.utc_now()
-                  |> NaiveDateTime.truncate(:second)
+
+    current_time =
+      NaiveDateTime.utc_now()
+      |> NaiveDateTime.truncate(:second)
+
     Enum.map(repos, fn repo ->
       %{
         name: repo["name"],
